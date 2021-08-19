@@ -1,8 +1,7 @@
 .container {
     width: 100vw;
-    height: 75vh;
     display: flex;
     align-content: center;
     justify-content: center;
-    background-color: white;
+    background-color: mediumspringgreen;
 }
