@@ -92,7 +92,7 @@ const Register = (props: Props) => {
                     name="bio" id="bio" cols={30} 
                     rows={10}></textarea>
 
-                <input type="submit" value="Login" />
+                <input className={styles.button} type="submit" value="Login" />
             </form>
         </div>
     )

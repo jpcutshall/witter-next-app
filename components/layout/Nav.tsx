@@ -1,4 +1,3 @@
-import { FunctionComponent } from 'react';
 import Link from 'next/link';
 import styles from '../../styles/Nav.module.css'
 
@@ -6,7 +5,7 @@ interface Props {
 
 }
 
-const Nav: FunctionComponent = (props: Props) => {
+const Nav = (props: Props) => {
     return (
         <nav className={styles.container} >
         
@@ -18,8 +17,8 @@ const Nav: FunctionComponent = (props: Props) => {
                 <a className={styles.links} >About</a>
             </Link>
     
-            <Link href="/login">
-                <a className={styles.links} >Login</a>
+            <Link href="/register">
+                <a className={styles.links} >Register</a>
             </Link>
                 
         </nav>

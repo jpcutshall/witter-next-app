@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react';
+import { UserContext } from '../contexts/UserContext';
 import axios  from 'axios';
-import styles from '../styles/Login.module.css'
+import styles from '../styles/Login.module.css';
 
 interface Props {
     
@@ -10,19 +11,24 @@ const url = 'http://localhost:5000/user/login'
 
 
 const Login = (props: Props) => {
-    const [username, setUsername] = useState('')
-    const [password, setPassword] = useState('')
+    const [inputUsername, setInputUsername] = useState('')
+    const [inputPassword, setInputPassword] = useState('')
+    const { setUserName, setUserId, setUserRole, setUserToken } = useContext(UserContext)
 
     const handleSubmit = async (e: React.SyntheticEvent) => {
         e.preventDefault();
         const data = {
-            username,
-            password
+            username: inputUsername,
+            password: inputPassword
         }
         
         try {
             const res = await axios.post(url, data)
-            console.log(res.data)
+            setUserName(res.data.user.username);
+            setUserId(res.data.user.id)
+            setUserRole(res.data.user.role)
+            setUserToken(res.data.token)
+            console.log(res.data.user)
         } catch (err) {
             console.error(err)
         }
@@ -30,13 +36,13 @@ const Login = (props: Props) => {
 
     const handlePassChange = (e: React.FormEvent<HTMLInputElement>) => {
         e.preventDefault();
-        setPassword(e.currentTarget.value)
+        setInputPassword(e.currentTarget.value)
        
     }
 
     const handleUserChange = (e: React.FormEvent<HTMLInputElement>) => {
         e.preventDefault();
-        setUsername(e.currentTarget.value)
+        setInputUsername(e.currentTarget.value)
        
     }
 
@@ -48,7 +54,7 @@ const Login = (props: Props) => {
                     type="text" 
                     placeholder="Username"
                     className={styles.input}
-                    value={username} 
+                    value={inputUsername} 
                     onChange={handleUserChange} 
                     name="username" 
                     id="username" />
@@ -57,12 +63,12 @@ const Login = (props: Props) => {
                     className={styles.input} 
                     placeholder="Password"
                     type="password" 
-                    value={password} 
+                    value={inputPassword} 
                     onChange={handlePassChange} 
                     name="password" 
                     id="password" />
 
-                <input type="submit" value="Login" />
+                <input className={styles.button} type="submit" value="Login" />
             </form>
         </div>
     )
